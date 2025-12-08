@@ -8,10 +8,10 @@
           <div class="hidden md:block">
             <div class="ml-10 flex items-baseline space-x-4">
               <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-              <x-nav-link href="/" :current="request()->is('/')">Home</x-nav-link>
-              <x-nav-link href="/posts" :current="request()->is('posts')">Blog</x-nav-link>
-              <x-nav-link href="/about" :current="request()->is('about')">About</x-nav-link>
-              <x-nav-link href="/contact" :current="request()->is('contact')">Contact</x-nav-link>
+              <x-my-nav-link href="/" :current="request()->is('/')">Home</x-my-nav-link>
+              <x-my-nav-link href="/posts" :current="request()->is('posts')">Blog</x-my-nav-link>
+              <x-my-nav-link href="/about" :current="request()->is('about')">About</x-my-nav-link>
+              <x-my-nav-link href="/contact" :current="request()->is('contact')">Contact</x-my-nav-link>
             </div>
           </div>
         </div>
@@ -27,17 +27,24 @@
 
             <!-- Profile dropdown -->
             <div class="relative ml-3">
+              @if (Auth::check())
               <button type="button" @click="profileOpen = !profileOpen" class="relative flex max-w-xs items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only">Open user menu</span>
+                <div class="text-sm font-medium text-gray-300 mr-3">{{ Auth::user()->name }}</div>
                 <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80" alt="" class="size-8 rounded-full outline -outline-offset-1 outline-white/10" />
               </button>
-
+              
               <div x-show="profileOpen" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="opacity-0 scale-95" x-transition:enter-end="opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="opacity-100 scale-100" x-transition:leave-end="opacity-0 scale-95" @click.away="profileOpen = false" class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-gray-800 py-1 outline-1 -outline-offset-1 outline-white/10 focus:outline-hidden" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabindex="-1">
                 <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:outline-hidden" role="menuitem" tabindex="-1">Your profile</a>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:outline-hidden" role="menuitem" tabindex="-1">Settings</a>
                 <a href="#" class="block px-4 py-2 text-sm text-gray-300 hover:bg-white/5 focus:bg-white/5 focus:outline-hidden" role="menuitem" tabindex="-1">Sign out</a>
               </div>
+              @else
+              <a href="/login" class="text-sm font-medium text-gray-300 hover:bg-white/5">Login</a>
+              <span class="text-gray-300 text-sm">|</span>
+              <a href="/register" class="text-sm font-medium text-gray-300 hover:bg-white/5">Register</a>
+              @endif
             </div>
           </div>
         </div>
@@ -60,10 +67,10 @@
     <div x-show="mobileOpen" class="block md:hidden">
       <div class="space-y-1 px-2 pt-2 pb-3 sm:px-3">
         <!-- Current: "bg-gray-950/50 text-white", Default: "text-gray-300 hover:bg-white/5 hover:text-white" -->
-            <x-nav-link class="block" href="/" :current="request()->is('/')">Home</x-nav-link>
-            <x-nav-link class="block" href="/posts" :current="request()->is('posts')">Blog</x-nav-link>
-            <x-nav-link class="block" href="/about" :current="request()->is('about')">About</x-nav-link>
-            <x-nav-link class="block" href="/contact" :current="request()->is('contact')">Contact</x-nav-link>
+            <x-my-nav-link class="block" href="/" :current="request()->is('/')">Home</x-my-nav-link>
+            <x-my-nav-link class="block" href="/posts" :current="request()->is('posts')">Blog</x-my-nav-link>
+            <x-my-nav-link class="block" href="/about" :current="request()->is('about')">About</x-my-nav-link>
+            <x-my-nav-link class="block" href="/contact" :current="request()->is('contact')">Contact</x-my-nav-link>
       </div>
       <div class="border-t border-white/10 pt-4 pb-3">
         <div class="flex items-center px-5">
