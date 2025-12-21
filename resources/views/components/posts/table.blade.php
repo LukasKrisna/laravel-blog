@@ -1,5 +1,6 @@
 <!-- Start block -->
 <section class="p-3 sm:p-5 antialiased">
+    <h2 class="text-xl font-semibold pl-4 mb-4">Post by: {{ Auth::user()->name }}</h2>
     <div class="max-w-screen-xl px-4">
         <!-- Start coding here -->
         <div class="bg-white dark:bg-gray-800 relative sm:rounded-lg overflow-visible">
@@ -32,7 +33,6 @@
                         <tr>
                             <th scope="col" class="px-4 py-4">#</th>
                             <th scope="col" class="px-4 py-3">Title</th>
-                            <th scope="col" class="px-4 py-3">Author</th>
                             <th scope="col" class="px-4 py-3">Category</th>
                             <th scope="col" class="px-4 py-3">Published At</th>
                             <th scope="col" class="px-4 py-3">
@@ -45,7 +45,6 @@
                         <tr class="border-b dark:border-gray-700">
                             <th scope="row" class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">{{ $loop->iteration }}</th>
                             <td class="px-4 py-3">{{ $post->title }}</td>
-                            <td class="px-4 py-3">{{ $post->author->name }}</td>
                             <td class="px-4 py-3 ">{{ $post->category->name }}</td>
                             <td class="px-4 py-3">{{ $post->created_at->diffForHumans() }}</td>
                             <td class="px-4 py-3">
@@ -103,9 +102,11 @@
                     </tbody>
                 </table>
             </div>
-            <div class="p-3">
-                {{ $posts->links() }}
-            </div>
+            @if ($posts->hasPages())
+                <div class="p-3">
+                    {{ $posts->links() }}
+                </div>
+            @endif
         </div>
     </div>
 </section>
